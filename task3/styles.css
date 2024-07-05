@@ -1,0 +1,59 @@
+.comment-section {
+    overflow-y: auto;
+    height: 600px;
+    width: 700px;
+}
+
+.users-comments {
+    display: flex;
+    width: 100%;
+    height: 40%;
+    margin-bottom: 20px;
+    overflow: auto;
+}
+
+.users-comments .about-user {
+    order: 1;
+    padding: 10px;
+    padding-top: 15px;
+    margin-right: 10px;
+    width: 15%;
+}
+
+.users-comments p {
+    order: 2;
+    border: 2px black solid;
+    max-width: 500px;
+    max-height: 500px;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+#write {
+    border: 3px solid black;
+    margin-top: 10px;
+    width: 25%;
+    height: 100px;
+    overflow: auto;
+    resize: none;
+}
+
+.send{
+    color: white;
+    background-color: green;
+    position: absolute;
+}
+
+.button {
+    position: relative;
+    left: 380px;
+}
+
+.getUser {
+    border: 2px black solid;
+}
+
+.wrapper {
+    display: table;
+    width: 100%;
+}
