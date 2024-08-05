@@ -12,11 +12,40 @@ $text = <<<TXT
 </p>
 TXT;
 
-$newText = strip_tags($text);
-$lastWord = explode(' ',$newText)[28];
 $array = explode(' ', $text);
-$lastIndex = array_search($lastWord, $array);
-print(implode(' ',array_splice($array, 0, $lastIndex+1)) . '...');
+$array2 = explode(' ', strip_tags($text));
+$flag = 0;
+$keyWord = $array2[28];
+$closed = [];
+foreach($array as $elem) {
+    if ($elem == $keyWord) {
+        $flag = 1;
+        echo $elem . '...';
+    }
+    elseif ($flag and (preg_match_all('/<[^>]+>/', $elem, $tags) or preg_match_all('#<a#', $elem, $tags))) {
+        foreach($tags[0] as $tag) {
+            if (!preg_match('#</#', $tag) and $tag != '<a') {
+                $tag = str_replace('<', '</', $tag);
+                $closed[] = $tag;
+            }
+            elseif ($tag == '<a') {
+                $closed[] = '</a>';
+            }
+            else {
+                $closed[] = $tag;
+            }
+        }
+    }
+    elseif ($elem != $keyWord and !$flag) {
+        echo $elem . ' ';
+    }
+
+}
+foreach(array_count_values($closed) as $key => $elem) {
+    if ($elem == 1 or $elem % 2 != 0) {
+        echo $key;
+    }
+}
 ?>
 
 <br><a href="/index.php">Назад</a>
