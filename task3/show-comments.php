@@ -1,18 +1,7 @@
 <?php
-function getPDO() {
-    static $pdo;
 
-    if (!$pdo) {
-        $dbHost = '127.0.0.1';
-        $dbName = 'users';
-        try {
-            $pdo = new PDO("mysql:host=$dbHost;dbname=$dbName", 'root', '');
-        } catch (PDOException $exception) {
-            print_r($exception);
-        }
-    }
-    return $pdo;
-}
+require_once __DIR__ . '/Database.php';
+
 function calculateDate($date) {
     //Y-m-d H:i:s
     $timestamp = time() - strtotime($date);
@@ -92,10 +81,10 @@ function calculateDate($date) {
     }
 
 
-function showComments($pdo) {
-    $stmt = $pdo->prepare("SELECT * FROM comments");
-    $stmt->execute();
-    foreach($stmt as $row) {
+function showComments() {
+    $query = DB::prepare("SELECT * FROM users");
+    $query->execute();
+    foreach($query as $row) {
         $date = calculateDate($row['date']);
         echo "<li class=\"users-comments\" \"wrapper\">" .
                 "<div class=\"about-user\">" .

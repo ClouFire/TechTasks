@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/show-comments.php';
-function addComment($username, $comment, $pdo) {
-    $stmt = $pdo->prepare("INSERT INTO comments(username, comment, date) VALUES (:username, :comment, :date)");
-    $stmt->execute([
+require_once __DIR__ . '/Database.php';
+function addComment($username, $comment) {
+    $query = DB::prepare("INSERT INTO users(username, comment, date) VALUES (:username, :comment, :date)");
+    $query->execute([
         'username' => $username,
         'comment' => $comment,
         'date' => date('Y-m-d H:i:s', time()),
@@ -10,5 +10,5 @@ function addComment($username, $comment, $pdo) {
     return True;
 }
 
-addComment($_GET['username'], $_GET['comment'], getPDO());
+addComment($_POST['username'], $_POST['comment']);
 header('location:CRUD.php');

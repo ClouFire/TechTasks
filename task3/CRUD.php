@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/show-comments.php';
 
-date_default_timezone_set('Russia/Moscow');
+date_default_timezone_set('Europe/Volgograd');
 
 ?>
 <!doctype html>
@@ -18,12 +18,12 @@ date_default_timezone_set('Russia/Moscow');
     <ul class="comment-section">
 
         <?php
-        showComments(getPDO());
+        showComments();
         ?>
 
     </ul>
     <ul class="writing-section">
-            <form action="add-comment.php" method="get">
+            <form action="add-comment.php" method="POST">
                 <div>
                     <label for="getUser">Введите ваше имя: </label>
                     <input type="text" class="getUser" name="username" id="getUser">
@@ -35,7 +35,5 @@ date_default_timezone_set('Russia/Moscow');
                 </div>
             </form>
     </ul>
-
-    <a href="/index.php">Назад</a>
 </body>
 </html>
