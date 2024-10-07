@@ -1,11 +1,10 @@
 <?php
 require_once __DIR__ . '/show-comments.php';
+require_once __DIR__ . '/csrf.php';
 
 date_default_timezone_set('Europe/Moscow');
 session_start();
-if(empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-}
+$token = createCSRF();
 ?>
 <!doctype html>
 <html lang="en">
@@ -35,7 +34,7 @@ if(empty($_SESSION['csrf_token'])) {
                 <textarea id="write" placeholder="Напишите комментарий..." name="comment"></textarea>
                 <div class="button">
                     <input type="submit" class="send">
-                    <input type="hidden", name="csrf_token", value="<?= $_SESSION['csrf_token'] ?>">
+                    <input type="hidden", name="csrf_token", value="<?= $token ?>">
                 </div>
             </form>
     </ul>

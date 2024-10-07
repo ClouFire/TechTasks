@@ -83,6 +83,8 @@ function calculateDate($date) {
 
 function showComments() {
 
+    checkCSRF($_POST['csrf_token']);
+
     $query = DB::prepare("SELECT * FROM users");
     $query->execute();
     foreach($query as $row) {
