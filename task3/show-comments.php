@@ -2,8 +2,7 @@
 
 require_once __DIR__ . '/Database.php';
 function calculateDate($date) {
-    //Y-m-d H:i:s
-    $timestamp = time() - strtotime($date);
+    $timestamp = time() - strtotime($date) - 3600;
     $seconds = ['year' => 31536000, 'month' => 2678400, 'day' => 86400, 'hour' => 3600, 'minute' => 60, 'second' => 1];
     foreach ($seconds as $key => $item) {
         if (round($timestamp / $item) != 0) {
