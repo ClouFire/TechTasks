@@ -3,7 +3,6 @@ require_once __DIR__ . '/show-comments.php';
 require_once __DIR__ . '/csrf.php';
 
 date_default_timezone_set('Europe/Moscow');
-session_start();
 $token = createCSRF();
 ?>
 <!doctype html>

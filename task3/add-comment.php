@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/Database.php';
 require_once __DIR__ . '/csrf.php';
-session_start();
 function addComment($username, $comment) {
     checkCSRF($_POST['csrf_token']);
 
