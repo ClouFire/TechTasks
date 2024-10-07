@@ -1,7 +1,6 @@
 <?php
 
 require_once __DIR__ . '/Database.php';
-require_once __DIR__ . '/csrf.php';
 function calculateDate($date) {
     //Y-m-d H:i:s
     $timestamp = time() - strtotime($date);
@@ -82,9 +81,6 @@ function calculateDate($date) {
 
 
 function showComments() {
-
-    checkCSRF($_POST['csrf_token']);
-
     $query = DB::prepare("SELECT * FROM users");
     $query->execute();
     foreach($query as $row) {
