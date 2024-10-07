@@ -2,7 +2,10 @@
 require_once __DIR__ . '/show-comments.php';
 
 date_default_timezone_set('Europe/Moscow');
-
+session_start();
+if(empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -32,6 +35,7 @@ date_default_timezone_set('Europe/Moscow');
                 <textarea id="write" placeholder="Напишите комментарий..." name="comment"></textarea>
                 <div class="button">
                     <input type="submit" class="send">
+                    <input type="hidden", name="csrf_token", value="<?= $_SESSION['csrf_token'] ?>">
                 </div>
             </form>
     </ul>

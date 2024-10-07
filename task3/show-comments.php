@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/Database.php';
-
+session_start();
 function calculateDate($date) {
     //Y-m-d H:i:s
     $timestamp = time() - strtotime($date);
@@ -82,6 +82,7 @@ function calculateDate($date) {
 
 
 function showComments() {
+
     $query = DB::prepare("SELECT * FROM users");
     $query->execute();
     foreach($query as $row) {
