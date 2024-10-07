@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/show-comments.php';
 
-date_default_timezone_set('Europe/Volgograd');
+date_default_timezone_set('Europe/Moscow');
 
 ?>
 <!doctype html>
