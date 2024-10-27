@@ -1,4 +1,5 @@
 <?php
+
 $text = <<<TXT
 <p class="big">
 	Год основания:<b>1589 г.</b> Волгоград отмечает день города в <b>2-е воскресенье сентября</b>. <br>В <b>2023 году</b> эта дата - <b>10 сентября</b>.
@@ -12,40 +13,28 @@ $text = <<<TXT
 </p>
 TXT;
 
-$array = explode(' ', $text);
-$array2 = explode(' ', strip_tags($text));
-$flag = 0;
-$keyWord = $array2[28];
-$closed = [];
-foreach($array as $elem) {
-    if ($elem == $keyWord) {
-        $flag = 1;
-        echo $elem . '...';
-    }
-    elseif ($flag and (preg_match_all('/<[^>]+>/', $elem, $tags) or preg_match_all('#<a#', $elem, $tags))) {
-        foreach($tags[0] as $tag) {
-            if (!preg_match('#</#', $tag) and $tag != '<a') {
-                $tag = str_replace('<', '</', $tag);
-                $closed[] = $tag;
-            }
-            elseif ($tag == '<a') {
-                $closed[] = '</a>';
-            }
-            else {
-                $closed[] = $tag;
-            }
+function stripText($text, $limit = 28) {
+
+    $newText = explode(' ', strip_tags($text));
+    if($limit >= count($newText)) return "Fatal Error: Wrong limit value. Try input less";
+    $keyword = $newText[$limit-1];
+    $text = explode(' ', $text);
+    $result = [];
+    foreach($text as $key => $word) {
+        if(($key >= $limit-1 and strip_tags($word) == $keyword) or ($limit == 1 and $key >= $limit)) {
+            $result[] = $word;
+            break;
+        }
+        else {
+            $result[] = $word;
         }
     }
-    elseif ($elem != $keyWord and !$flag) {
-        echo $elem . ' ';
-    }
+    return implode(' ', $result) . '...';
+}
 
-}
-foreach(array_count_values($closed) as $key => $elem) {
-    if ($elem == 1 or $elem % 2 != 0) {
-        echo $key;
-    }
-}
+echo stripText($text, 20);
+
+
+
+
 ?>
-
-<br><a href="/index.php">Назад</a>
