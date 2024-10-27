@@ -36,5 +36,4 @@ echo stripText($text, 20);
 
 
 
-
 ?>
