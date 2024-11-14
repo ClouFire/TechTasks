@@ -23,4 +23,4 @@ function addComment($username, $comment) {
 }
 
 addComment($_POST['username'], $_POST['comment']);
-header('location:CRUD.php');
+header('location:index.php');
