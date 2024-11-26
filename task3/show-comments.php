@@ -83,13 +83,14 @@ function showComments() {
     $query = DB::prepare("SELECT * FROM users");
     $query->execute();
     foreach($query as $row) {
+        $comment = nl2br(htmlspecialchars($row['comment']), 1);
         $date = calculateDate($row['date']);
         echo "<li class=\"users-comments\" \"wrapper\">" .
                 "<div class=\"about-user\">" .
                     "<a href=\"#\">$row[username]</a> <br>" .
                     "<span>$date</span>" .
                 "</div>" .
-                "<p>$row[comment]</p>";
+                "<p>$comment</p>";
 
     }
 

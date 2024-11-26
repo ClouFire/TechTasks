@@ -14,7 +14,7 @@ function addComment($username, $comment) {
     else {
         $query = DB::prepare("INSERT INTO users(comment, date) VALUES (:comment, :date)");
         $query->execute([
-            'comment' => htmlspecialchars($comment),
+            'comment' => $comment,
             'date' => date('Y-m-d H:i:s', time()),
         ]);
     }
