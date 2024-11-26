@@ -36,7 +36,6 @@ function stripText($text, $limit = 28) {
             $result[] = $word;
         }
     }
-    $result[] = '...';
     foreach($result as $elem) {
         preg_match_all('#<[/a-zA-Z]+#', $elem, $tags);
         foreach($tags as $tag) {
@@ -46,6 +45,7 @@ function stripText($text, $limit = 28) {
             }
         }
     }
+    $result[count($result)-1] .= '...';
     foreach(array_count_values($closedTags) as $key => $elem) {
         if ($elem == 1 or $elem % 2 != 0) {
             $result[] = $key . '>';
