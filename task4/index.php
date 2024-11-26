@@ -26,20 +26,34 @@ function stripText($text, $limit = 28) {
     $keyword = $newText[$limit-1];
     $text = explode(' ', $text);
     $result = [];
+    $closedTags = [];
+    $singleTags = ['</img' => 1, '</br' => 1, '</col' => 1, '</hr' => 1, '</input' => 1, '</link' => 1, ];
     foreach($text as $key => $word) {
         if(($key >= $limit-1 and strip_tags($word) == $keyword) or ($limit == 1 and $key >= $limit)) {
-            $result[] = $word;
             break;
         }
         else {
             $result[] = $word;
         }
     }
-    return implode(' ', $result) . '...';
+    foreach($result as $elem) {
+        preg_match_all('#<[/a-zA-Z]+#', $elem, $tags);
+        foreach($tags as $tag) {
+            foreach($tag as $elem) {
+                if(!str_contains($elem,'</')) $elem = str_replace('<', '</', $elem);
+                if(!isset($singleTags[$elem])) $closedTags[] = $elem;
+            }
+        }
+    }
+    $result[] = '...';
+    foreach(array_count_values($closedTags) as $key => $elem) {
+        if ($elem == 1 or $elem % 2 != 0) {
+            $result[] = $key . '>';
+        }
+    }
+    return implode(' ', $result);
 }
 
 echo stripText($text, 20);
-
-
 
 ?>
