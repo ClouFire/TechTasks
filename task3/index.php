@@ -2,6 +2,8 @@
 require_once __DIR__ . '/show-comments.php';
 require_once __DIR__ . '/csrf.php';
 
+$comments = TableShow::getComments();
+
 $token = createCSRF();
 ?>
 <!doctype html>
@@ -18,9 +20,14 @@ $token = createCSRF();
 <body>
     <ul class="comment-section">
 
-        <?php
-        showComments();
-        ?>
+        <?php foreach($comments as $row) : ?>
+            <li class="users-comments wrapper">
+                <div class="about-user">
+                    <a href="#"><?=htmlspecialchars($row['username'])?></a>
+                    <br>
+                    <span><?=TableShow::calculateDate($row['date'])?></span>
+                </div><p><?=htmlspecialchars($row['comment'])?></p>
+         <?php endforeach ?>
 
     </ul>
     <ul class="writing-section">
@@ -33,7 +40,7 @@ $token = createCSRF();
                 <textarea id="write" placeholder="Напишите комментарий..." name="comment"></textarea>
                 <div class="button">
                     <input type="submit" class="send">
-                    <input type="hidden", name="csrf_token", value="<?= $token ?>">
+                    <input type="hidden" name="csrf_token" value="<?=$token?>">
                 </div>
             </form>
     </ul>

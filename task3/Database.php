@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/config.php';
 
-class DB extends data
+class DB
 {
     private static $instance = null;
 
@@ -12,9 +12,9 @@ class DB extends data
     {
         $this->connection = new \PDO
         (
-            "mysql:host=$this->dbHost;dbname=$this->dbName;charset=utf8",
-            "$this->dbLogin",
-            "$this->dbPass",
+            "mysql:host=" . DBHOST . ";dbname=". DBNAME .";charset=utf8",
+            DBLOGIN,
+            DBPASS,
             [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,

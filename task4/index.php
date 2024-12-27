@@ -19,17 +19,20 @@ $text = <<<TXT
 </p>
 TXT;
 
-function stripText($text, $limit = 28) {
+function stripText($text, $limit = 1) {
 
     $newText = explode(' ', strip_tags($text));
+    if($limit == 0) return '';
     if($limit >= count($newText)) return "Fatal Error: Wrong limit value. Try input less";
     $keyword = $newText[$limit-1];
-    $text = explode(' ', $text);
+    if($limit == 1) return $keyword . '...';
+        $text = explode(' ', $text);
+    $singleTags = ['</img' => 1, '</br' => 1, '</col' => 1, '</hr' => 1, '</input' => 1, '</link' => 1, ];
     $result = [];
     $closedTags = [];
-    $singleTags = ['</img' => 1, '</br' => 1, '</col' => 1, '</hr' => 1, '</input' => 1, '</link' => 1, ];
     foreach($text as $key => $word) {
         if(($key >= $limit-1 and strip_tags($word) == $keyword) or ($limit == 1 and $key >= $limit)) {
+            $result[] = $word;
             break;
         }
         else {
@@ -54,6 +57,6 @@ function stripText($text, $limit = 28) {
     return implode(' ', $result);
 }
 
-echo stripText($text, 20);
+echo stripText($text, 27);
 
 ?>

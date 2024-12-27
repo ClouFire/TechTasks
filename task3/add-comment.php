@@ -7,7 +7,7 @@ function addComment($username, $comment) {
         $query = DB::prepare("INSERT INTO users(username, comment, date) VALUES (:username, :comment, :date)");
         $query->execute([
             'username' => $username,
-            'comment' => htmlspecialchars($comment),
+            'comment' => $comment,
             'date' => date('Y-m-d H:i:s', time()),
         ]);
     }
@@ -22,5 +22,20 @@ function addComment($username, $comment) {
     return True;
 }
 
-addComment($_POST['username'], $_POST['comment']);
-header('location:index.php');
+if($_SERVER['REQUEST_METHOD'] !== "POST")
+{
+    header('location:index.php');
+    exit();
+}
+else
+{
+    if(trim($_POST['comment'])) {
+        addComment($_POST['username'], $_POST['comment']);
+        header('location:index.php');
+    }
+    else
+    {
+        header('location:index.php');
+        exit();
+    }
+}
