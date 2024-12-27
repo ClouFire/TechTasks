@@ -25,7 +25,6 @@ function stripText($text, $limit = 1) {
     if($limit == 0) return '';
     if($limit >= count($newText)) return "Fatal Error: Wrong limit value. Try input less";
     $keyword = $newText[$limit-1];
-    if($limit == 1) return $keyword . '...';
         $text = explode(' ', $text);
     $singleTags = ['</img' => 1, '</br' => 1, '</col' => 1, '</hr' => 1, '</input' => 1, '</link' => 1, ];
     $result = [];
@@ -57,6 +56,6 @@ function stripText($text, $limit = 1) {
     return implode(' ', $result);
 }
 
-echo stripText($text, 27);
+echo stripText($text, 1);
 
 ?>
