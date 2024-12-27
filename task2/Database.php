@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/config.php';
 
-class DB extends data
+class DB
 {
     private static $instance = null;
 
