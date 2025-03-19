@@ -6,6 +6,7 @@ class TableShow
 {
     public static function calculateDate($date)
     {
+        date_default_timezone_set('Europe/Moscow');
         $timestamp = time() - strtotime($date);
         $seconds = ['year' => 31536000, 'month' => 2678400, 'day' => 86400, 'hour' => 3600, 'minute' => 60, 'second' => 1];
         foreach ($seconds as $key => $item) {

@@ -34,7 +34,7 @@ $token = createCSRF();
             <form action="add-comment.php" method="POST">
                 <div>
                     <label for="getUser">Введите ваше имя: </label>
-                    <input type="text" class="getUser" name="username" id="getUser">
+                    <input type="text" class="getUser" name="username" id="getUser" required>
                 </div>
                 <label for="write"></label>
                 <textarea id="write" placeholder="Напишите комментарий..." name="comment"></textarea>
