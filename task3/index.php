@@ -25,7 +25,6 @@ $token = createCSRF();
                 <div class="about-user">
                     <a href="#"><?=htmlspecialchars($row['username'])?></a>
                     <br>
-                    <span><?=TableShow::calculateDate($row['date'])?></span>
                 </div><p><?=htmlspecialchars($row['comment'])?></p>
          <?php endforeach ?>
 
@@ -34,10 +33,10 @@ $token = createCSRF();
             <form action="add-comment.php" method="POST">
                 <div>
                     <label for="getUser">Введите ваше имя: </label>
-                    <input type="text" class="getUser" name="username" id="getUser" required>
+                    <input type="text" class="getUser" name="username" id="getUser">
                 </div>
                 <label for="write"></label>
-                <textarea id="write" placeholder="Напишите комментарий..." name="comment"></textarea>
+                <textarea id="write" placeholder="Напишите комментарий..." name="comment" required></textarea>
                 <div class="button">
                     <input type="submit" class="send">
                     <input type="hidden" name="csrf_token" value="<?=$token?>">
