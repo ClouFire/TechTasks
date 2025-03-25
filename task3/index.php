@@ -33,10 +33,10 @@ $token = createCSRF();
             <form action="add-comment.php" method="POST">
                 <div>
                     <label for="getUser">Введите ваше имя: </label>
-                    <input type="text" class="getUser" name="username" id="getUser">
+                    <input type="text" class="getUser" name="username" id="getUser" maxlength="25">
                 </div>
                 <label for="write"></label>
-                <textarea id="write" placeholder="Напишите комментарий..." name="comment" required></textarea>
+                <textarea id="write" placeholder="Напишите комментарий..." name="comment" maxlength="250" required></textarea>
                 <div class="button">
                     <input type="submit" class="send">
                     <input type="hidden" name="csrf_token" value="<?=$token?>">
