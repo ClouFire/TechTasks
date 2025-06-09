@@ -1,11 +1,10 @@
 <?php
-require_once __DIR__ . '/show-comments.php';
-require_once __DIR__ . '/csrf.php';
 
-$comments = TableShow::getComments();
+require_once __DIR__ . '/config.php';
+require_once HELPERS;
 
-$token = createCSRF();
 ?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -18,30 +17,30 @@ $token = createCSRF();
     <title>Document</title>
 </head>
 <body>
-    <ul class="comment-section">
+<ul class="comment-section">
 
-        <?php foreach($comments as $row) : ?>
-            <li class="users-comments wrapper">
-                <div class="about-user">
-                    <a href="#"><?=htmlspecialchars($row['username'])?></a>
-                    <br>
-                </div><p><?=htmlspecialchars($row['comment'])?></p>
-         <?php endforeach ?>
+    <?php foreach(getComments() as $row) : ?>
+    <li class="users-comments wrapper">
+        <div class="about-user">
+            <a href="#"><?=htmlspecialchars($row['username'])?></a>
+            <br>
+        </div><p><?=htmlspecialchars($row['comment'])?></p>
+        <?php endforeach ?>
 
-    </ul>
-    <ul class="writing-section">
-            <form action="add-comment.php" method="POST">
-                <div>
-                    <label for="getUser">Введите ваше имя: </label>
-                    <input type="text" class="getUser" name="username" id="getUser" maxlength="25">
-                </div>
-                <label for="write"></label>
-                <textarea id="write" placeholder="Напишите комментарий..." name="comment" maxlength="250" required></textarea>
-                <div class="button">
-                    <input type="submit" class="send">
-                    <input type="hidden" name="csrf_token" value="<?=$token?>">
-                </div>
-            </form>
-    </ul>
+</ul>
+<ul class="writing-section">
+    <form action="helpers.php" method="POST">
+        <?= getCsrfField(); ?>
+        <div>
+            <label for="getUser">Введите ваше имя: </label>
+            <input type="text" class="getUser" name="username" id="getUser" maxlength="25">
+        </div>
+        <label for="write"></label>
+        <textarea id="write" placeholder="Напишите комментарий..." name="comment" maxlength="250" required></textarea>
+        <div class="button">
+            <input type="submit" class="send" name="submitComment">
+        </div>
+    </form>
+</ul>
 </body>
 </html>
