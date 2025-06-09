@@ -1,6 +1,6 @@
 <?php
 
-define("ROOT", dirname(__DIR__) . '\task3_how_i_see');
+define("ROOT", dirname(__DIR__) . '\task3');
 
 const DATABASE = ROOT . '/DataBase.php';
 const HELPERS = ROOT . '/helpers.php';
