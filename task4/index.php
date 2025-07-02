@@ -16,6 +16,22 @@ TXT;
 $doc = new DOMDocument();
 $doc->loadHTML(mb_convert_encoding($text, 'HTML-ENTITIES', 'UTF-8'));
 $body = $doc->documentElement->lastChild;
+function stripText($text, $body, $limit = 27)
+{
+    if($limit <= 0) return '';
+
+    $NT = [];
+    $NT = cleanText($body, $NT);
+
+    if($limit >= count($NT)) return $text;
+
+    $keyword = $NT[$limit-1];
+    $stop = false;
+    $counter = 0;
+    getNodes($body, $result, $keyword, $stop, $counter, $limit);
+
+    return implode('',  $result);
+}
 function cleanText($node, &$NT): array
 {
     if($node instanceof DOMText)
@@ -52,22 +68,6 @@ function cleanText($node, &$NT): array
     return $NT;
 }
 
-function stripText($text, $body, $limit = 27)
-{
-    if($limit <= 0) return '';
-
-    $NT = [];
-    $NT = cleanText($body, $NT);
-
-    if($limit >= count($NT)) return $text;
-
-    $keyword = $NT[$limit-1];
-    $stop = false;
-    $counter = 0;
-    getNodes($body, $result, $keyword, $stop, $counter, $limit);
-
-    return implode('',  $result);
-}
 
 function getNodes($node, &$result, $keyword, &$stop, &$counter, $limit)
 {
@@ -121,8 +121,14 @@ function getNodes($node, &$result, $keyword, &$stop, &$counter, $limit)
     }
 }
 
+#Искомый результат по заданию
+echo stripText($text, $body);
+
+#Проверка всевозможных вариантов сокращения текста
+/*
 for($i = 1; $i <= 85; $i++)
 {
     print("- {$i} -" . PHP_EOL);
     print(stripText($text, $body, $i) . PHP_EOL);
 }
+*/

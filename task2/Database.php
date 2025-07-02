@@ -7,6 +7,7 @@ class DB
     private static $instance = null;
 
     private $connection = null;
+    private $statement;
 
     protected function __construct()
     {

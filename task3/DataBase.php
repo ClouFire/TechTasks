@@ -3,6 +3,7 @@ class DataBase
 {
     private static $instance = null;
     private $connection = null;
+    private $statement;
 
     protected function __construct()
     {
@@ -41,26 +42,30 @@ class DataBase
         return static::getInstance()->connection;
     }
 
-    public static function prepare($statement): \PDOStatement
+    public static function prepare(string $statement): \PDOStatement
     {
         return static::connection()->prepare($statement);
-    }
+    }   
 
-    public function getComments()
+    public function execute(string $statement, array $params = []): DataBase
     {
-        $query = DataBase::prepare("SELECT * FROM users");
-        $query->execute();
-        return $query->fetchAll();
+        $this->statement = static::connection()->prepare($statement);
+        $this->statement->execute($params);
+        return $this;
     }
 
-    public function addComment($username, $comment) {
+    public function getComments(): array
+    {
+        $this->execute("SELECT * FROM users");
+        return $this->statement->fetchAll();
+    }
 
-        $query = DataBase::prepare("INSERT INTO users(username, comment) VALUES (:username, :comment)");
-        $query->execute([
-            'username' => $username ?: "Аноним",
+    public function addComment(string $username, string $comment): bool | string {
+
+        $this->execute("INSERT INTO users(username, comment) VALUES (:username, :comment)", [
+            'username' => $username ?? "Аноним",
             'comment' => $comment,
         ]);
-
-        return True;
+        return $this->connection()->lastInsertId();
     }
 }

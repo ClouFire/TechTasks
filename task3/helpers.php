@@ -18,7 +18,7 @@ function addComment($username, $comment): void
     db()->addComment($username, $comment);
 }
 
-function getCsrfToken()
+function getCsrfToken(): string
 {
     if(empty($_SESSION['csrf_token']))
     {
@@ -27,11 +27,11 @@ function getCsrfToken()
     return $_SESSION['csrf_token'];
 }
 
-function checkCsrfToken($csrf_token)
+function checkCsrfToken($csrf_token): bool
 {
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
         if(!(isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $csrf_token))) {
-            die('CSRF токен невалиден. Запрос отклонен.');
+            die('CSRF токен невалиден. Запрос отклонен');
         }
     }
     return True;
