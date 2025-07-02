@@ -61,9 +61,9 @@ class DataBase
     }
 
     public function addComment(string $username, string $comment): bool | string {
-
+        $username = trim($username);
         $this->execute("INSERT INTO users(username, comment) VALUES (:username, :comment)", [
-            'username' => $username ?? "Аноним",
+            'username' => ($username) ?: "Аноним",
             'comment' => $comment,
         ]);
         return $this->connection()->lastInsertId();

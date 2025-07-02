@@ -44,16 +44,19 @@ function getCsrfField(): string
 
 function submitComment()
 {
-    if($_SERVER['REQUEST_METHOD'] == 'POST')
+    if($_SERVER['REQUEST_METHOD'] == 'POST' and trim($_POST['comment']))
     {
         checkCsrfToken($_POST['csrf_token']);
         addComment($_POST['username'], $_POST['comment']);
         header('Location:index.php');
-        exit();
+        die;
     }
     else {
+        $_SESSION['error'] = "<div class='alert alert-warning alert-dismissible fade show' role='alert' style='width: 50%'>"
+        . "<strong>Внимание!</strong><br> Ваш комментарий не будет отображен на странице."
+        . "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
         header('Location:index.php');
-        exit();
+        die;
     }
 }
 

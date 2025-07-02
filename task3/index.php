@@ -12,7 +12,7 @@ require_once HELPERS;
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../css/task3.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Task3</title>
 </head>
@@ -28,7 +28,7 @@ require_once HELPERS;
         <?php endforeach ?>
 
 </ul>
-<ul class="writing-section">
+<ul class="writing-section" style="margin-bottom: 40px">
     <form action="helpers.php" method="POST">
         <?= getCsrfField(); ?>
         <div>
@@ -41,6 +41,16 @@ require_once HELPERS;
             <input type="submit" class="send" name="submitComment">
         </div>
     </form>
+    <a href="../index.html">Назад</a>
 </ul>
+
+<?php
+if(isset($_SESSION['error']))
+{
+    print($_SESSION['error']);
+    unset($_SESSION['error']);
+}
+?>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </html>

@@ -20,3 +20,6 @@ try {
 } catch (Exception $e) {
     echo $e->getMessage();
 }
+?>
+<br><a href="../index.html">Назад</a>
+

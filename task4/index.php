@@ -123,7 +123,9 @@ function getNodes($node, &$result, $keyword, &$stop, &$counter, $limit)
 
 #Искомый результат по заданию
 echo stripText($text, $body);
-
+?>
+<a href="../index.html">Назад</a>
+<?php
 #Проверка всевозможных вариантов сокращения текста
 /*
 for($i = 1; $i <= 85; $i++)
@@ -132,3 +134,4 @@ for($i = 1; $i <= 85; $i++)
     print(stripText($text, $body, $i) . PHP_EOL);
 }
 */
+?>
